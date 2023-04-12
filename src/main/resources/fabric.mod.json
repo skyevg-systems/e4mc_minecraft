@@ -1,0 +1,36 @@
+{
+    "schemaVersion": 1,
+    "id": "${mod_id}",
+    "version": "${mod_version}",
+    "name": "${mod_name}",
+    "description": "Open a LAN server to anyone, anywhere, anytime.",
+    "authors": [
+        "skyevg"
+    ],
+    "contributors": [],
+    "contact": {
+        "homepage": "https://e4mc.link",
+        "issues": "https://git.skye.vg/me/e4mc_minecraft/issues",
+        "sources": "https://git.skye.vg/me/e4mc_minecraft"
+    },
+    "license": "MIT",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            {
+                "adapter": "kotlin",
+                "value": "vg.skye.e4mc_minecraft.E4mcClient"
+            }
+        ]
+    },
+    "mixins": [
+        "${mod_id}.mixins.json"
+    ],
+    "depends": {
+        "fabric": "*",
+        "fabricloader": ">=0.14.9",
+        "fabric-language-kotlin": "*",
+        "minecraft": "${mc_version == "1.19.4" ? ">=1.19" : ">=1.17 <1.19"}",
+        "java": ">=16"
+    }
+}
