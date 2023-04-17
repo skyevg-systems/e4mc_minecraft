@@ -16,6 +16,7 @@ import net.fabricmc.loader.api.FabricLoader
 //#endif
 import net.minecraft.client.MinecraftClient
 import net.minecraft.text.ClickEvent
+import net.minecraft.text.HoverEvent
 import net.minecraft.text.Text
 //#if MC>=11900
 import net.minecraft.util.Formatting
@@ -126,6 +127,7 @@ class E4mcRelayHandler: WebSocketClient(URI("wss://ingress.e4mc.link")) {
                 it
                     .withClickEvent(ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, domain))
                     .withColor(Formatting.GREEN)
+                    .withHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.translatable("chat.copy.click")))
             }
         )
         //#elseif FABRIC==1
@@ -133,12 +135,14 @@ class E4mcRelayHandler: WebSocketClient(URI("wss://ingress.e4mc.link")) {
         //$$     return@styled it
         //$$         .withClickEvent(ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, domain))
         //$$         .withColor(Formatting.GREEN)
+        //$$         .withHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, TranslatableText("chat.copy.click")))
         //$$ })
         //#else
         //$$ return TranslatableComponent("text.e4mc_quilt.domainAssigned", TextComponent(domain).withStyle {
         //$$     return@withStyle it
         //$$         .withClickEvent(ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, domain))
         //$$         .withColor(ChatFormatting.GREEN)
+        //$$         .withHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, TranslatableComponent("chat.copy.click")))
         //$$ })
         //#endif
     }
