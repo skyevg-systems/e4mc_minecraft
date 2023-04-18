@@ -1,6 +1,9 @@
 import com.modrinth.minotaur.dependencies.DependencyType
 import com.modrinth.minotaur.dependencies.ModDependency
+import org.gradle.configurationcache.extensions.capitalized
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import xyz.deftu.gradle.tools.minecraft.CurseRelation
+import xyz.deftu.gradle.tools.minecraft.CurseRelationType
 
 plugins {
     java
@@ -25,6 +28,20 @@ loomHelper {
 }
 
 releases {
+    gameVersions.set(when (mcData.version) {
+        11904 -> listOf("1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4")
+        11802 -> listOf("1.17", "1.17.1", "1.18", "1.18.1", "1.18.2")
+        else -> listOf()
+    })
+    version.set("${modData.version}+${mcData.versionStr}-${mcData.loader.name}")
+    releaseName.set("[${when (mcData.version) {
+        11904 -> "1.19-"
+        11802 -> "1.17-1.18.2"
+        else -> mcData.versionStr
+    }}] [${mcData.loader.name.capitalized()}] ${modData.version}")
+    if (mcData.isFabric) {
+        loaders.set(listOf("fabric", "quilt"))
+    }
     modrinth {
         projectId.set("qANg5Jrr")
         if (mcData.isFabric) {
@@ -38,6 +55,23 @@ releases {
             dependencies.set(
                 listOf(
                     ModDependency("ordsPcFz", DependencyType.REQUIRED),
+                )
+            )
+        }
+    }
+    curseforge {
+        projectId.set("849519")
+        if (mcData.isFabric) {
+            relations.set(
+                listOf(
+                    CurseRelation("fabric-api", CurseRelationType.REQUIRED),
+                    CurseRelation("fabric-language-kotlin", CurseRelationType.REQUIRED)
+                )
+            )
+        } else {
+            relations.set(
+                listOf(
+                    CurseRelation("kotlin-for-forge", CurseRelationType.REQUIRED)
                 )
             )
         }
