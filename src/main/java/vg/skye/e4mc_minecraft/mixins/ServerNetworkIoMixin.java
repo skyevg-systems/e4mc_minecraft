@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import vg.skye.e4mc_minecraft.E4mcClient;
 import vg.skye.e4mc_minecraft.E4mcRelayHandler;
 
 import javax.annotation.Nullable;
@@ -22,7 +23,6 @@ import java.net.InetAddress;
 @Mixin(ServerNetworkIo.class)
 public abstract class ServerNetworkIoMixin {
 	private static final ThreadLocal<Boolean> initializingE4mc = ThreadLocal.withInitial(() -> false);
-	private static E4mcRelayHandler e4mcHandler = null;
 
 	@Shadow
 	public abstract void bind(@Nullable InetAddress address, int port) throws IOException;
@@ -40,7 +40,7 @@ public abstract class ServerNetworkIoMixin {
 			}
 		} else {
 			E4mcRelayHandler handler = new E4mcRelayHandler();
-			e4mcHandler = handler;
+			E4mcClient.HANDLER = handler;
 			handler.connect();
 		}
 	}
@@ -56,8 +56,10 @@ public abstract class ServerNetworkIoMixin {
 	}
 
 	@Inject(method = "stop", at = @At("HEAD"))
-	private void bind(CallbackInfo ci) {
-		e4mcHandler.close();
+	private void stop(CallbackInfo ci) {
+		if (E4mcClient.HANDLER != null) {
+			E4mcClient.HANDLER.close();
+		}
 	}
 
 

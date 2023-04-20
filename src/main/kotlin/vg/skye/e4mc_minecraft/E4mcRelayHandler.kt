@@ -122,28 +122,46 @@ class E4mcRelayHandler: WebSocketClient(URI("wss://ingress.e4mc.link")) {
     private fun createMessage(domain: String): Text {
         //#if MC>=11900
         return Text.translatable(
-            "text.e4mc_quilt.domainAssigned",
+            "text.e4mc_minecraft.domainAssigned",
             Text.literal(domain).styled {
                 it
                     .withClickEvent(ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, domain))
                     .withColor(Formatting.GREEN)
                     .withHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.translatable("chat.copy.click")))
             }
+        ).append(
+            Text.translatable("text.e4mc_minecraft.clickToStop").styled {
+                it
+                    .withClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/e4mc stop"))
+                    .withColor(Formatting.GRAY)
+            }
         )
         //#elseif FABRIC==1
-        //$$ return TranslatableText("text.e4mc_quilt.domainAssigned", LiteralText(domain).styled {
+        //$$ return TranslatableText("text.e4mc_minecraft.domainAssigned", LiteralText(domain).styled {
         //$$     return@styled it
         //$$         .withClickEvent(ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, domain))
         //$$         .withColor(Formatting.GREEN)
         //$$         .withHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, TranslatableText("chat.copy.click")))
-        //$$ })
+        //$$ }).append(
+        //$$     TranslatableText("text.e4mc_minecraft.clickToStop").styled {
+        //$$         return@styled it
+        //$$             .withClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/e4mc stop"))
+        //$$             .withColor(Formatting.GRAY)
+        //$$     }
+        //$$ )
         //#else
-        //$$ return TranslatableComponent("text.e4mc_quilt.domainAssigned", TextComponent(domain).withStyle {
+        //$$ return TranslatableComponent("text.e4mc_minecraft.domainAssigned", TextComponent(domain).withStyle {
         //$$     return@withStyle it
         //$$         .withClickEvent(ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, domain))
         //$$         .withColor(ChatFormatting.GREEN)
         //$$         .withHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, TranslatableComponent("chat.copy.click")))
-        //$$ })
+        //$$ }).append(
+        //$$     TranslatableComponent("text.e4mc_minecraft.clickToStop").withStyle {
+        //$$         return@withStyle it
+        //$$             .withClickEvent(ClickEvent(ClickEvent.Action.RUN_COMMAND, "/e4mc stop"))
+        //$$             .withColor(ChatFormatting.GRAY)
+        //$$     }
+        //$$ )
         //#endif
     }
 
