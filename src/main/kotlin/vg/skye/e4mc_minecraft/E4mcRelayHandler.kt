@@ -42,7 +42,7 @@ data class DomainAssignedMessage(val DomainAssigned: String)
 data class ChannelOpenMessage(val ChannelOpen: List<Any>)
 data class ChannelClosedMessage(val ChannelClosed: Number)
 
-class E4mcRelayHandler: WebSocketClient(URI("wss://ingress.e4mc.link")) {
+class E4mcRelayHandler: WebSocketClient(URI(System.getProperty("vg.skye.e4mc_minecraft.ingress_uri", "wss://ingress.e4mc.link"))) {
     private val gson = Gson()
     private val childChannels = mutableMapOf<Int, LocalChannel>()
     private val messageQueue = mutableMapOf<Int, ArrayBlockingQueue<ByteBuffer>>()
