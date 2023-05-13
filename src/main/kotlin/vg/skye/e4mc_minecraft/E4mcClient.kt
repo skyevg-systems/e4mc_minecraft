@@ -49,6 +49,13 @@ object E4mcClient : ModInitializer {
             dispatcher.register(literal("e4mc")
                 .then(
                     literal("stop")
+                        .requires { src ->
+                            if (src.server.isDedicated) {
+                                src.hasPermissionLevel(4)
+                            } else {
+                                src.server.isHost((src.player ?: return@requires false).gameProfile)
+                            }
+                        }
                         .executes { context ->
                             if (HANDLER != null) {
                                 HANDLER!!.close()
