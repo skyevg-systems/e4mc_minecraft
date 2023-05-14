@@ -86,6 +86,26 @@ class E4mcRelayHandler: WebSocketClient(URI(System.getProperty("vg.skye.e4mc_min
 
     override fun onError(ex: java.lang.Exception) {
         ex.printStackTrace()
+        //#if FABRIC==1
+        val isClient = FabricLoader.getInstance().environmentType.equals(EnvType.CLIENT)
+        //#else
+        //$$ val isClient = FMLLoader.getDist().isClient
+        //#endif
+        if (isClient) {
+            try {
+                MinecraftClient.getInstance().inGameHud.chatHud.addMessage(
+                    //#if MC>=11900
+                    Text.translatable("text.e4mc_minecraft.error")
+                    //#elseif FABRIC==1
+                    //$$ TranslatableText("text.e4mc_minecraft.error")
+                    //#else
+                    //$$ TranslatableComponent("text.e4mc_minecraft.error")
+                    //#endif
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun handleDomainAssigned(json: JsonObject) {
