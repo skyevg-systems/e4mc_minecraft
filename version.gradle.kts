@@ -21,19 +21,22 @@ val bundle by configurations.creating {
     } else configurations.getByName("shade").extendsFrom(this)
 }
 
-loomHelper {
+toolkitLoomHelper {
     if (mcData.isForge) {
         useForgeMixin("e4mc_minecraft.mixins.json", true)
     }
 }
 
-releases {
+java {
+    withSourcesJar()
+}
+
+toolkitReleases {
     gameVersions.set(when (mcData.version) {
         11904 -> listOf("1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4")
         11802 -> listOf("1.17", "1.17.1", "1.18", "1.18.1", "1.18.2")
         else -> listOf()
     })
-    version.set("${modData.version}+${mcData.versionStr}-${mcData.loader.name}")
     releaseName.set("[${when (mcData.version) {
         11904 -> "1.19-"
         11802 -> "1.17-1.18.2"
@@ -44,6 +47,7 @@ releases {
     }
     modrinth {
         projectId.set("qANg5Jrr")
+        useSourcesJar.set(true)
         if (mcData.isFabric) {
             dependencies.set(
                 listOf(
