@@ -14,6 +14,7 @@
         "sources": "https://git.skye.vg/me/e4mc_minecraft"
     },
     "license": "MIT",
+    "icon": "assets/e4mc_minecraft/icon.png",
     "environment": "*",
     "entrypoints": {
         "main": [
