@@ -1,7 +1,6 @@
 import com.modrinth.minotaur.dependencies.DependencyType
 import com.modrinth.minotaur.dependencies.ModDependency
 import org.gradle.configurationcache.extensions.capitalized
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import xyz.deftu.gradle.tools.minecraft.CurseRelation
 import xyz.deftu.gradle.tools.minecraft.CurseRelationType
 
@@ -16,7 +15,10 @@ plugins {
 }
 
 val bundle by configurations.creating {
-    if (mcData.isFabric) {
+    // Fabric imposes a hard limit of 64 on mod IDs
+    // the autogenned mod IDs are far longer than that
+    // thanks, netty!
+    if (false /* mcData.isFabric */) {
         configurations.getByName("include").extendsFrom(this)
     } else configurations.getByName("shade").extendsFrom(this)
 }
@@ -106,7 +108,24 @@ dependencies {
     } else if (mcData.isForge) {
         implementation("thedarkcolour:kotlinforforge:3.8.0")
     }
-    bundle(implementation("org.java-websocket:Java-WebSocket:1.5.3") {
-        exclude(group = "org.slf4j")
+
+    bundle(implementation("com.github.vgskye.netty-incubator-codec-quic:netty-incubator-codec-classes-quic:03cbd5c2c4") {
+        exclude(group = "io.netty")
+    })
+//    bundle(implementation("io.netty.incubator:netty-incubator-codec-classes-quic:0.0.47.Final")!!)
+    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:linux-x86_64") {
+        exclude(group = "io.netty")
+    })
+    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:windows-x86_64") {
+        exclude(group = "io.netty")
+    })
+    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:osx-x86_64") {
+        exclude(group = "io.netty")
+    })
+    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:linux-aarch_64") {
+        exclude(group = "io.netty")
+    })
+    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:osx-aarch_64") {
+        exclude(group = "io.netty")
     })
 }

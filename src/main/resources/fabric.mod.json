@@ -31,7 +31,7 @@
         "fabric": "*",
         "fabricloader": ">=0.14.9",
         "fabric-language-kotlin": "*",
-        "minecraft": "${mc_version == "1.19.4" ? ">=1.19" : ">=1.17 <1.19"}",
+        "minecraft": "${mc_version == "1.19.4" ? ">=1.19" : ">=1.18 <1.19"}",
         "java": ">=16"
     }
 }

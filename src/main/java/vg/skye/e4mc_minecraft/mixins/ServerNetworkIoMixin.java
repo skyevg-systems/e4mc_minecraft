@@ -5,7 +5,6 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ServerChannel;
 import io.netty.channel.local.LocalAddress;
 import io.netty.channel.local.LocalServerChannel;
-import io.netty.channel.socket.ServerSocketChannel;
 import net.minecraft.server.ServerNetworkIo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vg.skye.e4mc_minecraft.E4mcClient;
-import vg.skye.e4mc_minecraft.E4mcRelayHandler;
+import vg.skye.e4mc_minecraft.QuiclimeHandler;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
@@ -40,9 +39,9 @@ public abstract class ServerNetworkIoMixin {
 				initializingE4mc.set(false);
 			}
 		} else {
-			E4mcRelayHandler handler = new E4mcRelayHandler();
+			QuiclimeHandler handler = new QuiclimeHandler();
 			E4mcClient.HANDLER = handler;
-			handler.connect();
+			handler.startAsync();
 		}
 	}
 
@@ -59,7 +58,7 @@ public abstract class ServerNetworkIoMixin {
 	@Inject(method = "stop", at = @At("HEAD"))
 	private void stop(CallbackInfo ci) {
 		if (E4mcClient.HANDLER != null) {
-			E4mcClient.HANDLER.close();
+			E4mcClient.HANDLER.stop();
 		}
 	}
 

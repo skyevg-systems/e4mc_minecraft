@@ -10,7 +10,6 @@ pluginManagement {
         maven("https://repo.essential.gg/repository/maven-public")
         maven("https://server.bbkr.space/artifactory/libs-release/")
         maven("https://jitpack.io/")
-
         // Snapshots
         maven("https://maven.deftu.xyz/snapshots")
         mavenLocal()
@@ -25,7 +24,7 @@ pluginManagement {
         kotlin("jvm") version(kotlin)
         kotlin("plugin.serialization") version(kotlin)
 
-        val epgt = "1.15.1"
+        val epgt = "1.17.1"
         id("xyz.deftu.gradle.multiversion-root") version(epgt)
     }
 }

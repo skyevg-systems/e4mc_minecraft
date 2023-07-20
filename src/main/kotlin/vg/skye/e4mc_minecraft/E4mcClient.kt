@@ -33,11 +33,11 @@ object E4mcClient : ModInitializer {
 //#endif
     const val NAME = "e4mc"
     const val ID = "e4mc_minecraft"
-    const val VERSION = "3.2.0"
+    const val VERSION = "4.0.0"
     @JvmField
     val LOGGER: Logger = LoggerFactory.getLogger("e4mc")
     @JvmField
-    var HANDLER: E4mcRelayHandler? = null
+    var HANDLER: QuiclimeHandler? = null
 
     //#if FABRIC==1
     override fun onInitialize() {
@@ -46,63 +46,14 @@ object E4mcClient : ModInitializer {
         //#else
         //$$ CommandRegistrationCallback.EVENT.register { dispatcher, _ ->
         //#endif
-            dispatcher.register(literal("e4mc")
-                .then(
-                    literal("stop")
-                        .requires { src ->
-                            if (src.server.isDedicated) {
-                                src.hasPermissionLevel(4)
-                            } else {
-                                src.server.isHost((src.player ?: return@requires false).gameProfile)
-                            }
-                        }
-                        .executes { context ->
-                            if (HANDLER != null) {
-                                HANDLER!!.close()
-                                HANDLER = null
-                                //#if MC>=11904
-                                context.source.sendMessage(Text.translatable("text.e4mc_minecraft.closeServer"))
-                                //#else
-                                //$$ context.source.sendFeedback(TranslatableText("text.e4mc_minecraft.closeServer"), false)
-                                //#endif
-                            } else {
-                                //#if MC>=11904
-                                context.source.sendMessage(Text.translatable("text.e4mc_minecraft.serverAlreadyClosed"))
-                                //#else
-                                //$$ context.source.sendFeedback(TranslatableText("text.e4mc_minecraft.serverAlreadyClosed"), false)
-                                //#endif
-                            }
-                            1
-                        }
-                ))
+            CommandsHelper.registerCommandWithDispatcher(dispatcher)
         }
     }
     //#else
     //$$ @SubscribeEvent
     //$$ fun onRegisterCommandEvent(event: RegisterCommandsEvent) {
-    //$$     val commandDispatcher = event.getDispatcher()
-    //$$     commandDispatcher.register(literal("e4mc")
-    //$$         .then(
-    //$$             literal("stop")
-    //$$                 .executes { context ->
-    //$$                     if (HANDLER != null) {
-    //$$                         HANDLER!!.close()
-    //$$                         HANDLER = null
-    //$$                         //#if MC>=11904
-    //$$                         context.source.sendSuccess(Component.translatable("text.e4mc_minecraft.closeServer"), false)
-    //$$                         //#else
-    //$$                         //$$ context.source.sendSuccess(TranslatableComponent("text.e4mc_minecraft.closeServer"), false)
-    //$$                         //#endif
-    //$$                     } else {
-    //$$                         //#if MC>=11904
-    //$$                         context.source.sendFailure(Component.translatable("text.e4mc_minecraft.serverAlreadyClosed"))
-    //$$                         //#else
-    //$$                         //$$ context.source.sendFailure(TranslatableComponent("text.e4mc_minecraft.serverAlreadyClosed"))
-    //$$                         //#endif
-    //$$                     }
-    //$$                     1
-    //$$                 }
-    //$$         ))
+    //$$     val dispatcher = event.getDispatcher()
+    //$$     CommandsHelper.registerCommandWithDispatcher(dispatcher)
     //$$ }
     //#endif
 }

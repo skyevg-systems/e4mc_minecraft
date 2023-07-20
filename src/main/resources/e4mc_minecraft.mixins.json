@@ -1,14 +1,14 @@
 {
-    "required": true,
-    "package": "vg.skye.e4mc_minecraft.mixins",
-    "compatibilityLevel": "JAVA_16",
-    "injectors": {
-        "defaultRequire": 1
-    },
-    "mixins": [
-        "ServerNetworkIoMixin",
-        "ClientConnectionMixin"
-    ],
-    "client": [],
-    "server": []
+  "required": true,
+  "package": "vg.skye.e4mc_minecraft.mixins",
+  "compatibilityLevel": "JAVA_16",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "ClientConnectionMixin",
+    "ServerNetworkIoMixin"
+  ],
+  "client": [],
+  "server": []
 }
