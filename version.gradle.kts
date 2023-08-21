@@ -35,12 +35,12 @@ java {
 
 toolkitReleases {
     gameVersions.set(when (mcData.version) {
-        11904 -> listOf("1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4")
-        11802 -> listOf("1.17", "1.17.1", "1.18", "1.18.1", "1.18.2")
+        11904 -> listOf("1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4", "1.20", "1.20.1")
+        11802 -> listOf("1.18", "1.18.1", "1.18.2")
         else -> listOf()
     })
     releaseName.set("[${when (mcData.version) {
-        11904 -> "1.19-"
+        11904 -> "1.18.x"
         11802 -> "1.17-1.18.2"
         else -> mcData.versionStr
     }}] [${mcData.loader.name.capitalized()}] ${modData.version}")
@@ -109,23 +109,23 @@ dependencies {
         implementation("thedarkcolour:kotlinforforge:3.8.0")
     }
 
-    bundle(implementation("com.github.vgskye.netty-incubator-codec-quic:netty-incubator-codec-classes-quic:03cbd5c2c4") {
+    bundle(implementation("com.github.vgskye.netty-incubator-codec-quic:netty-incubator-codec-classes-quic:57a52c4") {
         exclude(group = "io.netty")
     })
 //    bundle(implementation("io.netty.incubator:netty-incubator-codec-classes-quic:0.0.47.Final")!!)
-    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:linux-x86_64") {
-        exclude(group = "io.netty")
-    })
-    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:windows-x86_64") {
-        exclude(group = "io.netty")
-    })
-    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:osx-x86_64") {
-        exclude(group = "io.netty")
-    })
-    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:linux-aarch_64") {
-        exclude(group = "io.netty")
-    })
-    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:osx-aarch_64") {
-        exclude(group = "io.netty")
-    })
+//    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:linux-x86_64") {
+//        exclude(group = "io.netty")
+//    })
+//    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:windows-x86_64") {
+//        exclude(group = "io.netty")
+//    })
+//    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:osx-x86_64") {
+//        exclude(group = "io.netty")
+//    })
+//    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:linux-aarch_64") {
+//        exclude(group = "io.netty")
+//    })
+//    bundle(implementation("io.netty.incubator:netty-incubator-codec-native-quic:0.0.48.Final:osx-aarch_64") {
+//        exclude(group = "io.netty")
+//    })
 }

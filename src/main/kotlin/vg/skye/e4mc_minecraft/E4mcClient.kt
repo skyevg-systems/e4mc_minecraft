@@ -33,7 +33,7 @@ object E4mcClient : ModInitializer {
 //#endif
     const val NAME = "e4mc"
     const val ID = "e4mc_minecraft"
-    const val VERSION = "4.0.0"
+    const val VERSION = "4.0.1"
     @JvmField
     val LOGGER: Logger = LoggerFactory.getLogger("e4mc")
     @JvmField
