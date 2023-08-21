@@ -40,8 +40,8 @@ toolkitReleases {
         else -> listOf()
     })
     releaseName.set("[${when (mcData.version) {
-        11904 -> "1.18.x"
-        11802 -> "1.17-1.18.2"
+        11904 -> "1.19-"
+        11802 -> "1.18.x"
         else -> mcData.versionStr
     }}] [${mcData.loader.name.capitalized()}] ${modData.version}")
     if (mcData.isFabric) {
