@@ -15,7 +15,7 @@
     },
     "license": "MIT",
     "icon": "assets/e4mc_minecraft/icon.png",
-    "environment": "*",
+    "environment": "client",
     "entrypoints": {
         "main": [
             {
