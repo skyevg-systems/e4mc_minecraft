@@ -1,0 +1,7 @@
+{
+    "text.e4mc_minecraft.domainAssigned": "Lokalt spel startat på domän [%s]",
+    "text.e4mc_minecraft.closeServer": "Lokalt spel är inte publikt öppet längre",
+    "text.e4mc_minecraft.serverAlreadyClosed": "Lokalt spel är inte öppet",
+    "text.e4mc_minecraft.clickToStop": " (Klicka här för att stoppa)",
+    "text.e4mc_minecraft.error": "Ett fel uppstod i e4mc"
+}
